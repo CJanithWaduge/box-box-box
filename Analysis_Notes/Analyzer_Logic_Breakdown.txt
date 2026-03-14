@@ -1,0 +1,58 @@
+======================================================================
+TECHNICAL DOCUMENTATION: ANALYZER.PY LOGIC AND DATA INTERPRETATION
+======================================================================
+
+1. OBJECTIVE
+------------
+The 'analyzer.py' script was developed as a data-mining utility to 
+process the historical dataset containing 30,000 race records. The 
+primary intent is the filtration of data into specific scenarios based 
+on (Track + Temperature) to identify deterministic patterns.
+
+2. OPERATIONAL LOGIC
+--------------------
+- File Processing: Systematic scanning of the 'data/historical_races/' 
+  directory for JSON batch files is performed.
+- Grouping Mechanism: Data is organized into a dictionary structure 
+  where unique combinations of Track and Temperature serve as keys.
+- Attribute Extraction: For every driver entry, the Driver ID, 
+  Finishing Position (Rank), Starting Tire, and Pit-Stop count 
+  are extracted and mapped.
+
+3. DATA INTERPRETATION (CASE STUDY: SUZUKA @ 27°C)
+--------------------------------------------------
+The extracted output for Suzuka at 27°C with a Base Lap Time of 84.5s 
+provides the following insights:
+
+- Significance of Base Lap Time: 
+  The value of 84.5s is established as the fundamental track speed. 
+  It serves as the mathematical reference point; all tire-related 
+  time penalties or advantages are calculated relative to this value.
+
+- Comparative Analysis of Identical Starting Compounds (MEDIUM):
+  A discrepancy in finishing positions between D001 (P1) and D002 (P4) 
+  is observed despite identical starting tires.
+  * D001 (P1): Achieved via a 1-pit stop strategy, indicating 
+    maximum time efficiency.
+  * D002 (P4): Resulted from a 2-pit stop strategy. The additional 
+    22-second pit lane penalty was not offset by the gain in tire speed.
+
+- Assessment of SOFT Compound Performance:
+  D003 (starting on SOFT tires) concluded in P13. Under the 27°C 
+  thermal conditions, a high rate of degradation is inferred, 
+  rendering the SOFT compound less effective over the race distance.
+
+4. MATHEMATICAL OBJECTIVES
+--------------------------
+The grouped data is utilized to derive the following variables:
+- Tire Offset (Oc): The constant time difference between compounds.
+- Wear Rate (Wc): The linear increase in lap time per lap aged.
+- Pit Penalty: Verification of the deterministic 22s pit lane duration.
+
+5. CONCLUSION
+-------------
+The analysis confirms that the simulation operates on deterministic 
+calculations rather than stochastic variables. The relationship 
+between Base Time, Tire Deltas, and Wear is now clearly evidenced 
+for the development of the final prediction model.
+======================================================================
